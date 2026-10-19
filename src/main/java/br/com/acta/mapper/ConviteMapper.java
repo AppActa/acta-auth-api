@@ -1,7 +1,7 @@
 package br.com.acta.mapper;
 
-import br.com.acta.dto.core.colaborador.ColaboradorRequestDTO;
 import br.com.acta.dto.auth.ConviteRequestDTO;
+import br.com.acta.dto.core.colaborador.ColaboradorRequestDTO;
 import br.com.acta.entity.core.Empresa;
 import br.com.acta.entity.core.Usuario;
 import org.mapstruct.Mapper;

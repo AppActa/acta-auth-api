@@ -1,6 +1,6 @@
 package br.com.acta.mapper;
 
-import br.com.acta.dto.core.contato.TelefoneRequestDTO;
+import br.com.acta.dto.core.contato.telefone.TelefoneRequestDTO;
 import br.com.acta.entity.core.contato.TelefoneColaborador;
 import br.com.acta.entity.core.contato.TelefoneEmpresa;
 import org.mapstruct.Mapper;

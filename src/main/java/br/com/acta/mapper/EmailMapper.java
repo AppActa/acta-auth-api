@@ -1,6 +1,6 @@
 package br.com.acta.mapper;
 
-import br.com.acta.dto.core.contato.EmailRequestDTO;
+import br.com.acta.dto.core.contato.email.EmailRequestDTO;
 import br.com.acta.entity.core.contato.EmailColaborador;
 import br.com.acta.entity.core.contato.EmailEmpresa;
 import org.mapstruct.Mapper;
