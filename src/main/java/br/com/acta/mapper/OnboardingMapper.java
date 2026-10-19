@@ -3,20 +3,23 @@ package br.com.acta.mapper;
 import br.com.acta.dto.onboarding.OnboardingResponseDTO;
 import br.com.acta.entity.core.Usuario;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface OnboardingMapper {
-    @Mapping(target = "empresaExistente", constant = "false")
-    @Mapping(target = "conviteEnviado", constant = "false")
-    @Mapping(target = "proximaEtapa", constant = "false")
-    @Mapping(source = "empresa.id", target = "idEmpresa")
-    @Mapping(source = "empresa.status", target = "statusEmpresa")
-    @Mapping(source = "id", target = "idUsuario")
-    @Mapping(source = "tipo", target = "tipoUsuario")
-    @Mapping(source = "status", target = "statusUsuario")
-    @Mapping(target = "mensagem", ignore = true)
-    OnboardingResponseDTO toResponse(Usuario usuario);
+    default OnboardingResponseDTO toResponse(Usuario usuario) {
+        if (usuario == null) return null;
+
+        return new OnboardingResponseDTO(
+                false,
+                false,
+                false,
+                usuario.getEmpresa() == null ? null : usuario.getEmpresa().getId(),
+                usuario.getEmpresa() == null ? null : usuario.getEmpresa().getStatus(),
+                usuario.getId(),
+                usuario.getTipo(),
+                usuario.getStatus(),
+                null);
+    }
 
     default OnboardingResponseDTO toResponse(
             Usuario usuario,
@@ -24,6 +27,7 @@ public interface OnboardingMapper {
             boolean conviteEnviado,
             boolean proximaEtapa) {
         OnboardingResponseDTO response = toResponse(usuario);
+        if (response == null) return null;
         return new OnboardingResponseDTO(
                 empresaExistente,
                 conviteEnviado,
