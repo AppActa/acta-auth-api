@@ -206,7 +206,7 @@ src/main/java/br/com/acta/
 
 O workflow [`validacao.yml`](.github/workflows/validacao.yml) é acionado em pull requests para `main` e em pushes para `main`. Ele inicia PostgreSQL 16 temporário, executa `script.sql` nesse banco e chama `./mvnw ... clean verify`. Esse comando do workflow executa testes disponíveis no checkout do workflow; a inspeção deste README não executou testes.
 
-O workflow [`build-image.yml`](.github/workflows/build-image.yml) é acionado em pushes para `main` e tenta construir/publicar uma imagem no GHCR, depois atualizar `apps/auth-api.yaml` no `acta-platform`. No estado deste repositório, não há `Dockerfile` versionado na raiz nem em outro diretório identificado; portanto, o contexto de build declarado não contém o arquivo necessário e o workflow não comprova uma imagem construída ou publicada com sucesso.
+O workflow [`build-image.yml`](.github/workflows/build-image.yml) é acionado em pushes para `main`, constrói a imagem usando o `Dockerfile` da raiz, publica-a no GHCR e atualiza `apps/auth-api.yaml` no `acta-platform` com o SHA publicado. A disponibilidade da imagem depende de o workflow concluir e de a credencial de plataforma estar configurada.
 
 ## 🤝 Links e autoria
 
