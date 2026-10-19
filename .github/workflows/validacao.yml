@@ -1,0 +1,53 @@
+name: validacao
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # postgres temporário exclusivo da execução
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: acta_test
+          POSTGRES_USER: acta_test
+          POSTGRES_PASSWORD: acta_test
+        options: >-
+          --health-cmd "pg_isready -U acta_test -d acta_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      # baixa o código do pull request
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      # executa o script sql no banco de testes
+      - name: criar banco de testes
+        env:
+          PGPASSWORD: acta_test
+        run: psql -h localhost -U acta_test -d acta_test -f src/main/resources/sql/script.sql
+
+      # compila e executa os testes com o profile test
+      - run: >-
+          bash ./mvnw -B -Daether.transport.http.retryHandler.count=5
+          -Daether.transport.http.retryHandler.serviceUnavailable=429,502,503
+          clean verify

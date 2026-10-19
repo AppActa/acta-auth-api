@@ -1,0 +1,8 @@
+.git
+.github
+.idea
+target
+src/test
+README.md
+LICENSE
+PULL_REQUEST_TEMPLATE.md
