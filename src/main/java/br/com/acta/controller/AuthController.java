@@ -3,9 +3,11 @@ package br.com.acta.controller;
 import br.com.acta.common.config.firebase.FirebaseAuthFilter.FirebaseIdentity;
 import br.com.acta.common.config.swagger.openapi.AuthOpenapi;
 import br.com.acta.dto.auth.AtivarRequestDTO;
+import br.com.acta.dto.auth.AuthContextResponseDTO;
 import br.com.acta.dto.auth.ConviteRequestDTO;
 import br.com.acta.dto.auth.MeResponseDTO;
 import br.com.acta.dto.core.colaborador.ColaboradorResponseDTO;
+import br.com.acta.mapper.AuthMapper;
 import br.com.acta.service.AuthService;
 import br.com.acta.service.ConviteService;
 import jakarta.validation.Valid;
@@ -22,6 +24,12 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController implements AuthOpenapi {
     private final ConviteService conviteService;
     private final AuthService authService;
+    private final AuthMapper authMapper;
+
+    @GetMapping("/contexto")
+    public ResponseEntity<AuthContextResponseDTO> contexto() {
+        return ResponseEntity.ok(authMapper.toAuthContextResponse(authService.atual()));
+    }
 
     @GetMapping("/me")
     @Override
