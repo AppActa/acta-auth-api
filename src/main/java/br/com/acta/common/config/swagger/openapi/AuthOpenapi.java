@@ -7,6 +7,7 @@ import br.com.acta.common.config.swagger.annotation.ApiBusinessRuleResponse;
 import br.com.acta.common.config.swagger.annotation.ApiNotFoundResponse;
 import br.com.acta.common.config.swagger.examples.SwaggerOpenapiDescriptions;
 import br.com.acta.dto.auth.AtivarRequestDTO;
+import br.com.acta.dto.auth.AuthContextResponseDTO;
 import br.com.acta.dto.auth.ConviteRequestDTO;
 import br.com.acta.dto.auth.MeResponseDTO;
 import br.com.acta.dto.core.colaborador.ColaboradorResponseDTO;
@@ -22,6 +23,12 @@ import org.springframework.http.ResponseEntity;
 
 @Tag(name = "Autenticação", description = SwaggerOpenapiDescriptions.AUTH_CONTROLLER)
 public interface AuthOpenapi {
+
+    @Operation(summary = "Consulta o contexto de acesso ativo")
+    @ApiResponse(responseCode = "200", description = "Usuário, empresa e colaborador ativos", content = @Content(schema = @Schema(implementation = AuthContextResponseDTO.class)))
+    @ApiResponse(responseCode = "503", description = "Banco de dados indisponível")
+    @ApiAuthenticationResponses
+    ResponseEntity<AuthContextResponseDTO> contexto();
 
     @Operation(summary = "Consulta o usuário autenticado")
     @ApiResponse(responseCode = "200", description = "Identidade Firebase válida; estadoPerfil informa PERFIL_CRIADO ou CADASTRO_NAO_INICIADO", content = @Content(schema = @Schema(implementation = MeResponseDTO.class)))
