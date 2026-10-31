@@ -25,7 +25,7 @@ import org.springframework.http.ResponseEntity;
 public interface AuthOpenapi {
 
     @Operation(summary = "Consulta o contexto de acesso ativo")
-    @ApiResponse(responseCode = "200", description = "Usuário, empresa e colaborador ativos", content = @Content(schema = @Schema(implementation = AuthContextResponseDTO.class)))
+    @ApiResponse(responseCode = "200", description = "Dados do usuário, empresa e colaborador ativos, incluindo o nome do usuário", content = @Content(schema = @Schema(implementation = AuthContextResponseDTO.class)))
     @ApiResponse(responseCode = "503", description = "Banco de dados indisponível")
     @ApiAuthenticationResponses
     ResponseEntity<AuthContextResponseDTO> contexto();

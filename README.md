@@ -107,7 +107,7 @@ As operações de convite passam pelo fluxo autenticado com perfil ACTA. O filtr
 | Método e rota | Acesso adicional | Resposta de sucesso |
 | --- | --- | --- |
 | `GET /api/v1/health` | Público | `200`; `503` quando o banco está indisponível. |
-| `GET /api/v1/contexto` | Firebase ID Token; usuário, empresa e colaborador precisam estar ativos | `200`, com IDs, papel e permissão de gestor para a `acta-pg-api`. |
+| `GET /api/v1/contexto` | Firebase ID Token; usuário, empresa e colaborador precisam estar ativos | `200`, com nome e IDs do usuário, empresa e colaborador, papel e permissão de gestor para a `acta-pg-api`. |
 | `GET /api/v1/me` | Firebase ID Token; perfil ACTA não obrigatório | `200`, com o estado da identidade/perfil. |
 | `POST /api/v1/auth/ativar` | Firebase ID Token e e-mail verificado correspondente ao convite | `200`, com o perfil ativado. |
 | `POST /api/v1/onboarding/inicio` | Firebase ID Token, e-mail verificado e dados do gestor/CNPJ | `200`, com o resultado da consulta e a orientação para a próxima etapa. |
